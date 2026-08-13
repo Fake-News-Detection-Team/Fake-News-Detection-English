@@ -448,30 +448,27 @@ http://127.0.0.1:5000/
 
 ## 🖥️ Application Screenshots
 
-Screenshots of the web application can be added to this section to demonstrate the user interface and prediction results.
+### 🏠 Application Interface
 
-Recommended screenshots:
+The system provides a simple and user-friendly interface where users can select the English language and enter a news headline and article for analysis.
 
-* 🏠 Home / prediction page
-* 📰 News input interface
-* ✅ Real news prediction
-* ❌ Fake news prediction
-* 📊 Prediction confidence result
+![English Fake News Detection System - Home Page](screenshots/home.png)
 
-Example structure for adding screenshots later:
+---
 
-```text
-screenshots/
-├── home.png
-├── real-news.png
-└── fake-news.png
-```
+### ❌ Fake News Prediction
 
-Then they can be displayed in the README using:
+The system processes the submitted news article using the trained Hybrid CNN-LSTM model and displays the predicted class along with its confidence score.
 
-```markdown
-![Application Home Page](screenshots/home.png)
-```
+![Fake News Prediction](screenshots/fake-news-prediction.png)
+
+---
+
+### ✅ Real News Prediction
+
+The application can also identify news content classified as real and display the corresponding confidence score.
+
+![Real News Prediction](screenshots/real-news-prediction.png)
 
 ---
 
