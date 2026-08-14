@@ -540,13 +540,19 @@ It provides practical experience in:
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Authors
 
 ### Yash Agrawal
 
 **B.Tech — Information Technology**
 
 GitHub: **@Yash-Agrawal-2004**
+
+### Sarthak Srivastava
+
+**B.Tech — Information Technology**
+
+GitHub: **@Satty36-s**
 
 ---
 
