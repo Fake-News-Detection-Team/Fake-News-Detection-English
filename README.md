@@ -383,7 +383,7 @@ Fake-News-Detection-English/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Yash-Agrawal-2004/Fake-News-Detection-English.git
+git clone https://github.com/Fake-News-Detection-Team/Fake-News-Detection-English.git
 ```
 
 ### 2. Navigate to the Project Directory
