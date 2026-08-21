@@ -441,7 +441,7 @@ The Flask development server will start.
 Open the local address displayed in the terminal, usually:
 
 ```text
-http://127.0.0.1:5000/
+http://127.0.0.1:10000/
 ```
 
 ---
