@@ -58,7 +58,7 @@ def preprocess_text(text, language):
     if language == "english":
         text = text.lower()
         text = re.sub(r"[^a-zA-Z\s]", '', text)
-        words = word_tokenize(text)
+        words = word_tokenize(text, preserve_line = True)
         words = [w for w in words if w not in english_stop_words]
         return " ".join(words)
 
