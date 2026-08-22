@@ -451,13 +451,9 @@ Activate:
 source venv/bin/activate
 ```
 
-### 4. Install Required Packages
+### 4. Install Required Dependencies
 
-```bash
-pip install flask tensorflow keras numpy pandas nltk scikit-learn
-```
-
-If a `requirements.txt` file is provided in the repository, install dependencies using:
+Install the dependencies from the provided `requirements.txt` file:
 
 ```bash
 pip install -r requirements.txt
@@ -476,7 +472,21 @@ Open the local address displayed in the terminal, usually:
 ```text
 http://127.0.0.1:10000/
 ```
+### 🛠️ Troubleshooting
 
+#### TensorFlow installation fails on Windows
+
+Make sure that:
+
+1. You are using a supported Python version, preferably **Python 3.10.x**.
+2. The **Microsoft Visual C++ Redistributable for Visual Studio 2015–2022 (x64)** is installed.
+3. Your virtual environment is activated before installing the dependencies.
+
+You can verify the TensorFlow installation with:
+
+```bash
+python -c "import tensorflow as tf; print(tf.__version__)"
+```
 ---
 
 ## 🖥️ Application Screenshots
