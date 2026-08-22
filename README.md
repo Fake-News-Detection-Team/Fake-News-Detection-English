@@ -382,29 +382,32 @@ Fake-News-Detection-English/
 
 Before running the application, make sure your system meets the following requirements.
 
-⚙️ Prerequisites
-1. Python
+### ⚙️ Prerequisites
+#### 1. Python
 
 This project was developed and tested using:
 
-Python 3.10.11
-TensorFlow 2.20.0
-Keras 3.12.0
+- **Python 3.10.11**
+- **TensorFlow 2.20.0**
+- **Keras 3.12.0**
 
-For the most reliable setup, Python 3.10.x is recommended.
+For the most reliable setup, **Python 3.10.x is recommended**.
 
-Important: TensorFlow 2.20.0 does not support Python 3.14. Use a supported Python version. Python 3.10.x is recommended for this project because it matches the development environment.
+> **Important:** TensorFlow 2.20.0 does not support Python 3.14. Use a supported Python version. Python 3.10.x is recommended for this project because it matches the development environment.
 
 Check your installed Python version:
 
+```bash
 python --version
-
+```
 Recommended:
 
+```text
 Python 3.10.11
-2. Microsoft Visual C++ Redistributable
+```
+#### 2. Microsoft Visual C++ Redistributable
 
-Windows users must install the Microsoft Visual C++ Redistributable for Visual Studio 2015–2022 (x64) before installing TensorFlow.
+Windows users must install the **Microsoft Visual C++ Redistributable for Visual Studio 2015–2022 (x64)** before installing TensorFlow.
 
 This runtime is required by TensorFlow for native Windows dependencies.
 
