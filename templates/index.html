@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>English Fake News Detection</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background-image: url("{{ url_for('static', filename='background.png') }}");
+     
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      margin:0;
+    }
+    .container{
+      background:white;
+      padding:30px;
+      border-radius:20px;
+      width:600px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.2);
+      text-align:center;
+    }
+    h1{
+      margin-bottom:20px;
+      font-size:24px;
+      color:#333;
+    }
+    select, textarea, button{
+      width:100%;
+      margin-top:15px;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid #ccc;
+      font-size:15px;
+    }
+    textarea{
+      width:100%;
+      box-sizing:border-box;
+	  resize: vertical;
+      height:150px;
+    }
+	#wordCount {
+		text-align: right;
+		margin-top: 5px;
+		font-size: 13px;
+		color: #666;
+	}
+    button{
+      background:#2a476d;
+      color:white;
+      border:none;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    button:hover{
+      background:#23314d;
+    }
+    .result{
+      margin-top:20px;
+      font-size:18px;
+      font-weight:bold;
+      color:#222;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>ENGLISH FAKE NEWS DETECTION SYSTEM</h1>
+
+  <select id="language">
+    <option value="english">English</option>
+  </select>
+
+  <textarea id="newsText" placeholder="Enter News Heading + Article (Max 1000 words)"></textarea>
+  
+  <div id="wordCount">Words: 0 / 1000</div>
+
+  <button onclick="checkNews()">CHECK</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+const newsText = document.getElementById("newsText");
+const wordCount = document.getElementById("wordCount");
+const MAX_WORDS = 1000;
+
+function getWords(text) {
+    return text.trim().split(/\s+/).filter(word => word.length > 0);
+}
+
+function updateWordCount() {
+    const words = getWords(newsText.value);
+    wordCount.innerText = `Words: ${words.length} / ${MAX_WORDS}`;
+}
+
+function enforceWordLimit() {
+    const words = getWords(newsText.value);
+
+    if (words.length > MAX_WORDS) {
+        newsText.value = words.slice(0, MAX_WORDS).join(" ");
+
+        newsText.selectionStart = newsText.value.length;
+        newsText.selectionEnd = newsText.value.length;
+    }
+
+    updateWordCount();
+}
+
+
+/* Normal typing / editing */
+newsText.addEventListener("input", function () {
+    enforceWordLimit();
+});
+
+
+/* Prevent paste from exceeding 1000 words */
+newsText.addEventListener("paste", function (event) {
+    event.preventDefault();
+
+    const pastedText = event.clipboardData.getData("text");
+
+    const start = newsText.selectionStart;
+    const end = newsText.selectionEnd;
+
+    const before = newsText.value.substring(0, start);
+    const after = newsText.value.substring(end);
+
+    const beforeWords = getWords(before);
+    const pastedWords = getWords(pastedText);
+    const afterWords = getWords(after);
+
+    const remainingWords =
+        MAX_WORDS - beforeWords.length - afterWords.length;
+
+    if (remainingWords <= 0) {
+        updateWordCount();
+        return;
+    }
+
+    const allowedPastedWords =
+        pastedWords.slice(0, remainingWords);
+
+    const newText =
+        before +
+        (allowedPastedWords.length > 0
+            ? " " + allowedPastedWords.join(" ")
+            : "") +
+        after;
+
+    newsText.value = newText.trim();
+
+    newsText.focus();
+
+    newsText.selectionStart = newsText.value.length;
+    newsText.selectionEnd = newsText.value.length;
+
+    updateWordCount();
+});
+
+
+/* Prevent drag-and-drop from exceeding 1000 words */
+newsText.addEventListener("drop", function (event) {
+    event.preventDefault();
+
+    const droppedText = event.dataTransfer.getData("text");
+
+    const start = newsText.selectionStart;
+    const end = newsText.selectionEnd;
+
+    const before = newsText.value.substring(0, start);
+    const after = newsText.value.substring(end);
+
+    const beforeWords = getWords(before);
+    const droppedWords = getWords(droppedText);
+    const afterWords = getWords(after);
+
+    const remainingWords =
+        MAX_WORDS - beforeWords.length - afterWords.length;
+
+    if (remainingWords <= 0) {
+        updateWordCount();
+        return;
+    }
+
+    const allowedDroppedWords =
+        droppedWords.slice(0, remainingWords);
+
+    const newText =
+        before +
+        (allowedDroppedWords.length > 0
+            ? " " + allowedDroppedWords.join(" ")
+            : "") +
+        after;
+
+    newsText.value = newText.trim();
+
+    newsText.focus();
+
+    newsText.selectionStart = newsText.value.length;
+    newsText.selectionEnd = newsText.value.length;
+
+    updateWordCount();
+});
+
+async function checkNews(){
+  const text = document.getElementById("newsText").value.trim();
+  const lang = document.getElementById("language").value;
+
+  if(text.length === 0){
+    alert("Please enter news text");
+    return;
+  }
+  
+
+  document.getElementById("result").innerText = "Analyzing...";
+
+  try{
+    const response = await fetch("/predict", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ text:text, language:lang })
+    });
+
+    const data = await response.json();
+
+    if (data.error) { 
+      document.getElementById("result").innerText = "Backend Error: " + data.error;
+    } 
+    else {
+      document.getElementById("result").innerText = `Prediction: ${data.prediction} (Confidence: ${data.confidence}%)`;
+    }
+  }catch(err){
+    document.getElementById("result").innerText = "Error connecting to model backend";
+  }
+}
+</script>
+
+</body>
+</html>
