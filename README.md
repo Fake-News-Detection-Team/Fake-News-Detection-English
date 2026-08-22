@@ -311,7 +311,7 @@ Fake-News-Detection-English/
 ├── templates/
 │   └── index.html
 │
-├── English News.docx
+├── Sample English News.docx
 │
 ├── .gitignore
 │
@@ -327,7 +327,7 @@ Fake-News-Detection-English/
 | `tokenizers/`       | Contains the trained tokenizer                                |
 | `static/`           | Static assets such as images and interface resources          |
 | `templates/`        | HTML templates used by the Flask application                  |
-| `English News.docx` | English news material used during project development/testing |
+| `Sample English News.docx` | English news material used during project testing |
 | `.gitignore`        | Specifies files that should not be tracked by Git             |
 | `README.md`         | Project documentation                                         |
 
